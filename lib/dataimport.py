@@ -8,7 +8,7 @@ with open("parameters/config.json") as config:
     param = json.load(config)
 
 # settting up the function with parameters
-def dataupdate(Name,Genre,CreatedDate,Director, EntryCreatedBy,EntryCreatedDate):
+def dataupdate(TimeStamp,Temperature,Gas,Humidity, Pressure,Altitude):
     # Connecting to data warehouse
     try:
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
@@ -22,10 +22,10 @@ def dataupdate(Name,Genre,CreatedDate,Director, EntryCreatedBy,EntryCreatedDate)
 
         if db_con.connect():
             try:
-                sql = """INSERT INTO movies (Name,Genre,CreatedDate,Director, EntryCreatedBy,EntryCreatedDate)
+                sql = """INSERT INTO movies (TimeStamp,Temperature,Gas,Humidity, Pressure,Altitude)
                             VALUES (%s, %s, %s, %s,%s,%s) """
                 # Establish the record with set of data to be taken form variables
-                record = (Name, Genre, CreatedDate, Director, EntryCreatedBy, EntryCreatedDate)
+                record = (TimeStamp,Temperature,Gas,Humidity, Pressure,Altitude)
                 # Execute sql with collected records
                 db_con.execute(sql, record)
                 # Close connection

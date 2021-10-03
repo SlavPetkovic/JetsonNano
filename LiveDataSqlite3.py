@@ -5,6 +5,14 @@ import board
 from busio import I2C
 import adafruit_bme680
 import datetime
+import mysql.connector
+import json
+import sqlalchemy
+
+# read database config file
+with open("parameters/config.json") as config:
+    param = json.load(config)
+
 # Create library object using our Bus I2C port
 i2c = I2C(board.SCL, board.SDA)
 bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c, debug=False)
@@ -18,25 +26,39 @@ dbname = 'Prometheus.db'
 
 # Using while loop capture the data in variables and store it in database
 while True:
-    
     # Create the now variable to capture the current moment
-    now = datetime.datetime.now()
-    
-    TEMPERATURE = round(bme680.temperature,1)
-    GAS = round(bme680.gas,1)
-    HUMIDITY = round(bme680.humidity,1)
-    PRESSURE = round(bme680.pressure,1)
-    ALTITUDE = round(bme680.altitude,1)
-    TIME_STAMP =(now)
+    TimeStamp = datetime.datetime.now()
+    Temperature = round(bme680.temperature,1)
+    Gas = round(bme680.gas,1)
+    Humidity = round(bme680.humidity,2)
+    Pressure = round(bme680.pressure,2)
+    Altitude = round(bme680.altitude,2)
 
-    conn = sqlite3.connect(dbname)
-    curs = conn.cursor()
-    curs.execute("INSERT INTO BME_DATA (TIME_STAMP, TEMPERATURE, GAS, HUMIDITY, PRESSURE, ALTITUDE) values(?,?,?,?,?,?)",(TIME_STAMP, TEMPERATURE, GAS, HUMIDITY, PRESSURE, ALTITUDE))
-    conn.commit()
-    # Test by printing data from table BME_DATA
-    #for row in curs.execute("SELECT * FROM BME_DATA"):   
-        #print (row)
-    conn.close()
-    print(TEMPERATURE, GAS, HUMIDITY, PRESSURE, ALTITUDE, TIME_STAMP)
-    time.sleep(60)
+    try:
+        engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
+                                          format(param['MyDemoServer'][0]['user'],
+                                                 param['MyDemoServer'][0]['password'],
+                                                 param['MyDemoServer'][0]['host'],
+                                                 param['MyDemoServer'][0]['database']), echo=False)
+
+        # Cleaning the data from existing tables MetricValues and Metrics
+        db_con = engine.connect()
+        if db_con.connect():
+            try:
+                sql = """INSERT INTO movies (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
+                            VALUES (%s, %s, %s, %s, %s, %s) """
+                # Establish the record with set of data to be taken form variables
+                record = (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
+                # Execute sql with collected records
+                db_con.execute(sql, record)
+                # Close connection
+                db_con.close()
+                # Dispose the engine
+                engine.dispose()
+            except OSError as e:
+                print(e)
+    except OSError as e:
+        print(e)
+
+    time.sleep(1)
 
