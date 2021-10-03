@@ -10,7 +10,7 @@ import json
 import sqlalchemy
 
 # read database config file
-with open("parameters/config.json") as config:
+with open("/parameters/config.json") as config:
     param = json.load(config)
 
 # Create library object using our Bus I2C port
