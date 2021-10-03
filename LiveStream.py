@@ -20,6 +20,7 @@ bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c, debug=False)
 # change this to match the location's pressure (hPa) at sea level
 bme680.sea_level_pressure = 1013.25
 
+url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/2a7a2529-dbfd-4c32-9513-7d5857b61137/rows?key=nS3bP1Mo4qN9%2Fp6XJcTBgHBUV%2FcOZb0edYrK%2BtVWDg6iWwzRtY16HWUGSqB9YsqF3GHMNO2fe3r5ltB7NhVIvw%3D%3D'
 # Using while loop capture the data in variables and store it in database
 while True:
     # Create the now variable to capture the current moment
@@ -29,6 +30,8 @@ while True:
     Humidity = round(bme680.humidity, 2)
     Pressure = round(bme680.pressure, 2)
     Altitude = round(bme680.altitude, 2)
+
+
 
     try:
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
@@ -55,6 +58,38 @@ while True:
                 print(e)
     except OSError as e:
         print(e)
+
+# API Post
+    from datetime import datetime
+    import requests
+    import json
+
+    now = datetime.strftime(
+        datetime.now(),
+        "%Y-%m-%dT%H:%M:%S"
+    )
+
+    data = [
+        {
+            "TimeStamp": now,
+            "Temperature": Temperature,
+            "Gas": Gas,
+            "Humidity": Humidity,
+            "Pressure": Pressure,
+            "Altitude": Altitude
+        }
+    ]
+
+    # post/push data to the streaming API
+    headers = {
+        "Content-Type": "application/json"
+    }
+    response = requests.request(
+        method="POST",
+        url=url,
+        headers=headers,
+        data=json.dumps(data)
+    )
 
     time.sleep(1)
 
