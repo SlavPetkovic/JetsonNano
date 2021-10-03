@@ -3,7 +3,7 @@
     {
       "host":"slavdemo.mysql.database.azure.com",
       "user":"slavisha@slavdemo",
-      "password":"Stevan_13",
+      "password":"",
       "database":"neutrino"
     }
   ]
