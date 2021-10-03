@@ -20,10 +20,6 @@ bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c, debug=False)
 # change this to match the location's pressure (hPa) at sea level
 bme680.sea_level_pressure = 1013.25
 
-# Define database name to which data will be stored
-dbname = 'Prometheus.db'
-
-
 # Using while loop capture the data in variables and store it in database
 while True:
     # Create the now variable to capture the current moment
