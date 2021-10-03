@@ -3,8 +3,8 @@
     {
       "host":"slavdemo.mysql.database.azure.com",
       "user":"slavisha@slavdemo",
-      "password":"",
-      "database":"neutrino"
+      "password":"Stevan_13",
+      "database":"demodb"
     }
   ]
 }
