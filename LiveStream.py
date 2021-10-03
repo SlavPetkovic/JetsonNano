@@ -10,7 +10,7 @@ import json
 import sqlalchemy
 
 # read database config file
-with open("/parameters/config.json") as config:
+with open("config.json") as config:
     param = json.load(config)
 
 # Create library object using our Bus I2C port
@@ -41,7 +41,7 @@ while True:
         db_con = engine.connect()
         if db_con.connect():
             try:
-                sql = """INSERT INTO movies (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
+                sql = """INSERT INTO sensordata (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
                             VALUES (%s, %s, %s, %s, %s, %s) """
                 # Establish the record with set of data to be taken form variables
                 record = (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
