@@ -61,7 +61,7 @@ while True:
 
 # API Post
 
-    url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/2a7a2529-dbfd-4c32-9513-7d5857b61137/rows?key=nS3bP1Mo4qN9%2Fp6XJcTBgHBUV%2FcOZb0edYrK%2BtVWDg6iWwzRtY16HWUGSqB9YsqF3GHMNO2fe3r5ltB7NhVIvw%3D%3D'
+    url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/2a7a2529-dbfd-4c32-9513-7d5857b61137/rows?noSignUpCheck=1&key=nS3bP1Mo4qN9%2Fp6XJcTBgHBUV%2FcOZb0edYrK%2BtVWDg6iWwzRtY16HWUGSqB9YsqF3GHMNO2fe3r5ltB7NhVIvw%3D%3D'
 
     now = datetime.strftime(
         datetime.now(),
