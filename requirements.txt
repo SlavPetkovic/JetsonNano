@@ -1,0 +1,3 @@
+SQLAlchemy==1.4.25
+board==1.0
+mysql_connector_repackaged==0.3.1
