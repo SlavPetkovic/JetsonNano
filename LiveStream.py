@@ -24,11 +24,11 @@ bme680.sea_level_pressure = 1013.25
 while True:
     # Create the now variable to capture the current moment
     TimeStamp = datetime.datetime.now()
-    Temperature = round(bme680.temperature,1)
-    Gas = round(bme680.gas,1)
-    Humidity = round(bme680.humidity,2)
-    Pressure = round(bme680.pressure,2)
-    Altitude = round(bme680.altitude,2)
+    Temperature = round((bme680.temperature * 9/5) + 32, 2)
+    Gas = round(bme680.gas, 2)
+    Humidity = round(bme680.humidity, 2)
+    Pressure = round(bme680.pressure, 2)
+    Altitude = round(bme680.altitude, 2)
 
     try:
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
