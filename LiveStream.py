@@ -4,7 +4,9 @@ import time
 import board
 from busio import I2C
 import adafruit_bme680
-import datetime
+from datetime import datetime
+import requests
+
 import mysql.connector
 import json
 import sqlalchemy
@@ -24,14 +26,12 @@ url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/dataset
 # Using while loop capture the data in variables and store it in database
 while True:
     # Create the now variable to capture the current moment
-    TimeStamp = datetime.datetime.now()
+    TimeStamp = datetime.now()
     Temperature = round((bme680.temperature * 9/5) + 32, 2)
     Gas = round(bme680.gas, 2)
     Humidity = round(bme680.humidity, 2)
     Pressure = round(bme680.pressure, 2)
     Altitude = round(bme680.altitude, 2)
-
-
 
     try:
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
@@ -60,9 +60,7 @@ while True:
         print(e)
 
 # API Post
-    from datetime import datetime
-    import requests
-    import json
+
 
     now = datetime.strftime(
         datetime.now(),
