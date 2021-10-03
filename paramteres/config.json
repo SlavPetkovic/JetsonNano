@@ -1,0 +1,10 @@
+{
+  "MyDemoServer": [
+    {
+      "host":"slavdemo.mysql.database.azure.com",
+      "user":"slavisha@slavdemo",
+      "password":"Stevan_13",
+      "database":"neutrino"
+    }
+  ]
+}
