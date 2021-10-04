@@ -49,7 +49,7 @@ def sensorsreading():
         yield data
     return data
 
-def dataload():
+def dataload(data):
     # Try establishing connection with database
     try:
         engine = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}/{3}'.
@@ -70,7 +70,7 @@ def dataload():
     except OSError as e:
         print(e)
 
-def bipush():
+def bipush(data):
     # Power BI API
     # BI Address to push the data to
     url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/2a7a2529-dbfd-4c32-9513-7d5857b61137/rows?noSignUpCheck=1&key=nS3bP1Mo4qN9%2Fp6XJcTBgHBUV%2FcOZb0edYrK%2BtVWDg6iWwzRtY16HWUGSqB9YsqF3GHMNO2fe3r5ltB7NhVIvw%3D%3D'
