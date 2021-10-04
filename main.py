@@ -4,8 +4,7 @@ import time
 from lib.etl import *
 
 def etl(name):
-    data = pd.DataFrame()
-    sensorsreading()
+    data = sensorsreading()
     dataload(data)
     bipush(data)
 
