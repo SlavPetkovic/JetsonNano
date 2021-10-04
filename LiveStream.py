@@ -69,6 +69,18 @@ while True:
     # BI Address to push the data to for Bi Services
     url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/4447c3ef-6e4c-4bcb-972b-a676d93a6240/rows?key=9CgiRxiuuPh9eA3BS2ndOm4hSYXS5t6JMBVgsQPc3Ng3UfPljIqv9Y5RnThCdwMdZg99jL5mMr7MitAT5dZlCA%3D%3D'
     # post/push data to the streaming API
+
+    df = [
+        {
+            "TimeStamp": now,
+            "Temperature": Temperature,
+            "Gas": Gas,
+            "Humidity": Humidity,
+            "Pressure": Pressure,
+            "Altitude": Altitude
+        }
+    ]
+
     headers = {
         "Content-Type": "application/json"
     }
@@ -76,7 +88,7 @@ while True:
         method="POST",
         url=url,
         headers=headers,
-        data=json.dumps(data.to_json())
+        data=json.dumps(df)
     )
     data = pd.DataFrame()
     # Re-run the script at the beginning of every new minute.
