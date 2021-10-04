@@ -35,6 +35,7 @@ while True:
     Altitude = round(bme680.altitude, 2)
 
 
+    now = datetime.strftime(TimeStamp,"%Y-%m-%dT%H:%M:%S")
     # Adding collected measurements into dataframe
     data = [
         {
