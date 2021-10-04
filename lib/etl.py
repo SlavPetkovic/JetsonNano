@@ -45,4 +45,4 @@ def sensorsreading():
                 "Altitude": Altitude
             }
         ])
-    return data
+        yield data
