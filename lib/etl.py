@@ -47,7 +47,7 @@ def sensorsreading():
             }
         ])
         yield data
-    return data
+
 
 def dataload(data):
     # Try establishing connection with database
