@@ -24,8 +24,6 @@ bme680.sea_level_pressure = 1013.25
 
 # Read data from sensors
 while True:
-
-
     # Create the now variable to capture the current moment
     TimeStamp = datetime.now()
     Temperature = round((bme680.temperature * 9/5) + 32, 2)
@@ -33,7 +31,6 @@ while True:
     Humidity = round(bme680.humidity, 2)
     Pressure = round(bme680.pressure, 2)
     Altitude = round(bme680.altitude, 2)
-
 
     now = datetime.strftime(TimeStamp,"%Y-%m-%dT%H:%M:%S")
     # Adding collected measurements into dataframe
@@ -55,20 +52,10 @@ while True:
                                                  param['MyDemoServer'][0]['password'],
                                                  param['MyDemoServer'][0]['host'],
                                                  param['MyDemoServer'][0]['database']), echo=False)
-
         # Cleaning the data from existing tables MetricValues and Metrics
         db_con = engine.connect()
         if db_con.connect():
             try:
-                # SQL query that will insert collected data into sensordata table
-                #sql = """INSERT INTO sensordata (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
-                #           VALUES (%s, %s, %s, %s, %s, %s) """
-                # Establish the record with set of data to be taken form variables
-                #record = (TimeStamp, Temperature, Gas, Humidity, Pressure, Altitude)
-                # Execute sql with collected records
-                #db_con.execute(sql, record)
-                # Close connection
-
                 data.to_sql('sensordata', con = db_con, if_exists = 'append', index = False)
                 db_con.close()
                 # Dispose the engine
@@ -79,13 +66,8 @@ while True:
         print(e)
 
     # Power BI API
-
+    # BI Address to push the data to
     url = 'https://api.powerbi.com/beta/94cd2fa9-eb6a-490b-af36-53bf7f5ef485/datasets/2a7a2529-dbfd-4c32-9513-7d5857b61137/rows?noSignUpCheck=1&key=nS3bP1Mo4qN9%2Fp6XJcTBgHBUV%2FcOZb0edYrK%2BtVWDg6iWwzRtY16HWUGSqB9YsqF3GHMNO2fe3r5ltB7NhVIvw%3D%3D'
-
-    now = datetime.strftime(
-        datetime.now(),
-        "%Y-%m-%dT%H:%M:%S"
-    )
 
     # post/push data to the streaming API
     headers = {
@@ -104,3 +86,4 @@ while True:
 
     while datetime.now() < dt:
         time.sleep(1)
+
