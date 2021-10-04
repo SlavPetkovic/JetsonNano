@@ -13,7 +13,11 @@ if __name__ == '__main__':
     starttime = time.time()
     while True:
         etl('PyCharm')
-        time.sleep(60.0 - ((time.time() - starttime) % 60.0))
+        dt = datetime.now() + timedelta(minutes=1)
+        dt = dt.replace(second=1)
+
+        while datetime.now() < dt:
+            time.sleep(1)
     # Re-run the script at the beginning of every new minute.
 
 
