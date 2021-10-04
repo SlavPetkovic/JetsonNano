@@ -7,15 +7,13 @@ def etl(name):
     data = sensorsreading()
     dataload(data)
 
-    dt = datetime.now() + timedelta(minutes=1)
-    dt = dt.replace(second=1)
-
-    while datetime.now() < dt:
-        time.sleep(1)
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    etl('PyCharm')
+
+    starttime = time.time()
+    while True:
+        etl('PyCharm')
+        time.sleep(60.0 - ((time.time() - starttime) % 60.0))
     # Re-run the script at the beginning of every new minute.
 
 
