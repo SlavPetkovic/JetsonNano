@@ -4,7 +4,8 @@ import time
 import board
 from busio import I2C
 import adafruit_bme680
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 import requests
 
 import mysql.connector
@@ -90,4 +91,8 @@ while True:
         data=json.dumps(data)
     )
 
-    time.sleep(60)
+    dt = datetime.now() + timedelta(minutes=1)
+    dt = dt.replace(second=1)
+
+    while datetime.now() < dt:
+        time.sleep(1)
