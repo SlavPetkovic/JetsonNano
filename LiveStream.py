@@ -69,7 +69,7 @@ while True:
                 #db_con.execute(sql, record)
                 # Close connection
 
-                data.to_sql('sensordata', con = db_con, if_exist = 'append', index = False)
+                data.to_sql('sensordata', con = db_con, if_exists = 'append', index = False)
                 db_con.close()
                 # Dispose the engine
                 engine.dispose()
