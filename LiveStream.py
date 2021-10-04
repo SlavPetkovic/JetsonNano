@@ -25,7 +25,7 @@ bme680.sea_level_pressure = 1013.25
 # Read data from sensors
 while True:
 
-    data = pd.DataFrame()
+
     # Create the now variable to capture the current moment
     TimeStamp = datetime.now()
     Temperature = round((bme680.temperature * 9/5) + 32, 2)
@@ -37,7 +37,7 @@ while True:
 
     now = datetime.strftime(TimeStamp,"%Y-%m-%dT%H:%M:%S")
     # Adding collected measurements into dataframe
-    data = [
+    data = pd.DataFrame([
         {
             "TimeStamp": now,
             "Temperature": Temperature,
@@ -46,7 +46,7 @@ while True:
             "Pressure": Pressure,
             "Altitude": Altitude
         }
-    ]
+    ])
 
     # Try establishing connection with database
     try:
@@ -68,6 +68,7 @@ while True:
                 # Execute sql with collected records
                 #db_con.execute(sql, record)
                 # Close connection
+
                 data.to_sql('sensordata', con = db_con, if_exist = 'append', index = False)
                 db_con.close()
                 # Dispose the engine
@@ -96,7 +97,7 @@ while True:
         headers=headers,
         data=json.dumps(data)
     )
-
+    data = pd.DataFrame()
     # Re-run the script at the beginning of every new minute.
     dt = datetime.now() + timedelta(minutes=1)
     dt = dt.replace(second=1)
