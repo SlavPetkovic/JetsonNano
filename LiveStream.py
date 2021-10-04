@@ -95,7 +95,7 @@ while True:
         method="POST",
         url=url,
         headers=headers,
-        data=json.dumps(data)
+        data=json.dumps(data.to_json())
     )
     data = pd.DataFrame()
     # Re-run the script at the beginning of every new minute.
