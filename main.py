@@ -1,12 +1,18 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+import pandas as pd
+from datetime import datetime, timedelta
+import time
+from lib.etl import *
 
 def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    data = pd.DataFrame()
+
+    # Re-run the script at the beginning of every new minute.
+    dt = datetime.now() + timedelta(minutes=1)
+    dt = dt.replace(second=1)
+    sensorsreading()
+    print(data)
+    while datetime.now() < dt:
+        time.sleep(1)
 
 
 # Press the green button in the gutter to run the script.
