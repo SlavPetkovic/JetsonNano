@@ -5,7 +5,7 @@ from lib.etl import *
 
 def etl(name):
     data = sensorsreading()
-    print(data)
+    dataload(data)
 
 
 # Press the green button in the gutter to run the script.
