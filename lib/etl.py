@@ -46,7 +46,7 @@ def sensorsreading():
                 "Altitude": Altitude
             }
         ])
-        yield data
+        return data
 
 
 def dataload(data):
