@@ -15,4 +15,7 @@ if __name__ == '__main__':
     dt = datetime.now() + timedelta(minutes=1)
     dt = dt.replace(second=1)
 
+    while datetime.now() < dt:
+        time.sleep(1)
+
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
