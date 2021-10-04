@@ -5,8 +5,8 @@ from lib.etl import *
 
 def etl(name):
     data = sensorsreading()
-    dataload(data)
-    bipush(data)
+    dataload()
+    bipush()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
