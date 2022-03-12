@@ -1,0 +1,10 @@
+{
+  "Teletron": [
+    {
+      "host":"teletron.mysql.database.azure.com",
+      "user":"Slavisha@teletron",
+      "password":"Stevan13s",
+      "database":"devdb"
+    }
+  ]
+}
